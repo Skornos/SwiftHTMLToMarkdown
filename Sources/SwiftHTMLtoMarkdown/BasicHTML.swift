@@ -1,4 +1,5 @@
 import SwiftSoup
+import Foundation
 
 public class BasicHTML: HTML {
     public var rawHTML: String
@@ -6,6 +7,8 @@ public class BasicHTML: HTML {
     public var rawText: String = ""
     public var markdown: String = ""
     var hasSpacedParagraph: Bool = false
+
+    static let regex = try! NSRegularExpression(pattern: "lang.*-(\\w+)", options: [])
     
     public required init() {
         rawHTML = "Document not initialized correctly"
@@ -90,12 +93,11 @@ public class BasicHTML: HTML {
             if codeNode.nodeName() == "code" {
                 markdown += "```"
                 
-                // Try and get the language from the code block
-
                 if let codeClass = try? codeNode.attr("class"),
-                   let match = try? #/lang.*-(\w+)/#.firstMatch(in: codeClass) {
+                   let match = Self.regex.firstMatch(in: codeClass, options: [], range: NSRange(location: 0, length: codeClass.utf16.count)),
+                   let range = Range(match.range(at: 1), in: codeClass) {
                     // match.output.1 is equal to the second capture group.
-                    let language = match.output.1
+                    let language = codeClass[range]
                     markdown += language + "\n"
                 } else {
                     // Add the ending newline that we need to format this correctly.
