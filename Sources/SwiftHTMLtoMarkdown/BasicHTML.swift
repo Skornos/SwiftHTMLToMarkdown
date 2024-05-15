@@ -51,14 +51,14 @@ public class BasicHTML: HTML {
                 hasSpacedParagraph = true
             }
         } else if node.nodeName() == "a" {
-            markdown += "["
+            markdown += "_["
             for child in node.getChildNodes() {
                 try convertNode(child)
             }
             markdown += "]"
 
             let href = try node.attr("href")
-            markdown += "(\(href))"
+            markdown += "(\(href))_"
             return
         } else if node.nodeName() == "strong" {
             markdown += "**"
