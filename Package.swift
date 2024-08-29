@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "SwiftHTMLtoMarkdown",
     platforms: [
-        .iOS(.v12),
+        .iOS(.v13),
         .macOS(.v13)
     ],
     products: [
@@ -18,7 +18,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
-        .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.6.0"),
+        .package(url: "https://github.com/scinfu/SwiftSoup.git", "2.6.0"..<"2.7.4"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
